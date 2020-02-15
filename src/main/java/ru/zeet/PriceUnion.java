@@ -68,12 +68,10 @@ public class PriceUnion {
             Price p = rawPriceList.get(0);
             for (int i = 1; i < rawPriceList.size(); i++) {
                 if (p.getValue() != rawPriceList.get(i).getValue()) {
-                    // Если конец предыдущего диапазона == началу следующего -> расширяем диапазон
-                    if (p.getEnd() == rawPriceList.get(i).getBegin()) {
-                        p.setEnd(rawPriceList.get(i).getBegin());
-                    }
                     unionPrice.add(p);
                     p = rawPriceList.get(i);
+                } else  {
+                    p.setEnd(rawPriceList.get(i).getEnd());
                 }
             }
             // Последний элемент диапазона

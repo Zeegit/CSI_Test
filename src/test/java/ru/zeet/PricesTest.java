@@ -97,7 +97,7 @@ public class PricesTest {
 
         List<Price> goodPriceList = new ArrayList<>();
         goodPriceList.add(new Price("122856", 1, 1, "01.01.2013 00:00:00", "10.01.2013 00:00:00", 10000));
-        goodPriceList.add(new Price("122856", 1, 1, "10.01.2013 00:00:00", "15.01.2013 00:00:00", 11000));
+        goodPriceList.add(new Price("122856", 1, 1, "10.01.2013 00:00:00", "20.01.2013 00:00:00", 11000));
         goodPriceList.add(new Price("122856", 1, 1, "20.01.2013 00:00:00", "01.02.2013 00:00:00", 12000));
 
         assertEquals(unionPriceList, goodPriceList);
