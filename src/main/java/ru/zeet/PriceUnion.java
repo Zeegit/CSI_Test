@@ -67,11 +67,14 @@ public class PriceUnion {
             // Объединение
             Price p = rawPriceList.get(0);
             for (int i = 1; i < rawPriceList.size(); i++) {
-                if (p.getValue() != rawPriceList.get(i).getValue()) {
+                if (p.getValue() != rawPriceList.get(i).getValue()) {               // Поменялась цена
                     unionPrice.add(p);
                     p = rawPriceList.get(i);
-                } else  {
-                    p.setEnd(rawPriceList.get(i).getEnd());
+                } else if (p.getEnd().equals(rawPriceList.get(i).getBegin())) {     // Конец одного интервала == начало следующего
+                    p.setEnd(rawPriceList.get(i).getEnd());                         // Расширение интервала
+                } else {
+                    unionPrice.add(p);
+                    p = rawPriceList.get(i);
                 }
             }
             // Последний элемент диапазона
