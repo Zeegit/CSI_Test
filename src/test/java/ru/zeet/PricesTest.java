@@ -125,18 +125,20 @@ public class PricesTest {
     @Test
     public void sample3() {
         List<Price> oldPriceList = new ArrayList<>();
-        oldPriceList.add(new Price("122856", 1, 1, "01.01.2013 00:00:00", "15.01.2013 00:00:00", 10000));
-        oldPriceList.add(new Price("122856", 1, 1, "15.01.2013 00:00:00", "01.02.2013 00:00:00", 12000));
+        oldPriceList.add(new Price("122856", 1, 1, "01.01.2013 00:00:00", "10.01.2013 00:00:00", 8000));
+        oldPriceList.add(new Price("122856", 1, 1, "10.01.2013 00:00:00", "20.01.2013 00:00:00", 8700));
+        oldPriceList.add(new Price("122856", 1, 1, "20.01.2013 00:00:00", "01.02.2013 00:00:00", 9000));
 
         List<Price> newPriceList = new ArrayList<>();
-        newPriceList.add(new Price("122856", 1, 1, "10.01.2013 00:00:00", "20.01.2013 00:00:00", 11000));
+        newPriceList.add(new Price("122856", 1, 1, "05.01.2013 00:00:00", "15.01.2013 00:00:00", 8000));
+        newPriceList.add(new Price("122856", 1, 1, "15.01.2013 00:00:00", "25.01.2013 00:00:00", 8500));
 
         List<Price> unionPriceList = PriceUnion.unionList(oldPriceList, newPriceList);
 
         List<Price> goodPriceList = new ArrayList<>();
-        goodPriceList.add(new Price("122856", 1, 1, "01.01.2013 00:00:00", "10.01.2013 00:00:00", 10000));
-        goodPriceList.add(new Price("122856", 1, 1, "10.01.2013 00:00:00", "20.01.2013 00:00:00", 11000));
-        goodPriceList.add(new Price("122856", 1, 1, "20.01.2013 00:00:00", "01.02.2013 00:00:00", 12000));
+        goodPriceList.add(new Price("122856", 1, 1, "01.01.2013 00:00:00", "15.01.2013 00:00:00", 8000));
+        goodPriceList.add(new Price("122856", 1, 1, "15.01.2013 00:00:00", "25.01.2013 00:00:00", 8500));
+        goodPriceList.add(new Price("122856", 1, 1, "25.01.2013 00:00:00", "01.02.2013 00:00:00", 9000));
 
         assertEquals(unionPriceList, goodPriceList);
     }

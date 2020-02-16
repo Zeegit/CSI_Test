@@ -2,6 +2,8 @@ package ru.zeet;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
 Правила объединения цен:
@@ -32,15 +34,11 @@ public class PriceUnion {
         PriceList unionPrice = new PriceList();
 
         // Список уникальных код товара-номер цены-номер отдела
-        Set<Key> keys = new LinkedHashSet<>();
-
-        for (Price temp : oldPrice.getPriceList()) {
-            keys.add(temp.getKey());
-        }
-        for (Price temp : newPrice.getPriceList()) {
-            keys.add(temp.getKey());
-        }
-
+        Set<Key> keys = Stream.of(oldPrice.getPriceList(), newPrice.getPriceList())
+                .flatMap(n -> n.stream())
+                .map(n -> n.getKey())
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+        
         List<Price> rawPriceList = new ArrayList<>();
 
         // По всем уникальным ключам
@@ -72,8 +70,8 @@ public class PriceUnion {
                     p = rawPriceList.get(i);
                 } else if (p.getEnd().equals(rawPriceList.get(i).getBegin())) {     // Конец одного интервала == начало следующего
                     p.setEnd(rawPriceList.get(i).getEnd());                         // Расширение интервала
-                } else {
-                    unionPrice.add(p);
+                } else {                                                            // Цена не изменилась, но даты не совпадают
+                    unionPrice.add(p);                                              // Новый интервал
                     p = rawPriceList.get(i);
                 }
             }
