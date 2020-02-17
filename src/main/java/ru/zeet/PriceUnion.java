@@ -35,8 +35,8 @@ public class PriceUnion {
 
         // Список уникальных код товара-номер цены-номер отдела
         Set<Key> keys = Stream.of(oldPrice.getPriceList(), newPrice.getPriceList())
-                .flatMap(n -> n.stream())
-                .map(n -> n.getKey())
+                .flatMap(Collection::stream)
+                .map(Price::getKey)
                 .collect(Collectors.toCollection(LinkedHashSet::new));
 
         List<Price> rawPriceList = new ArrayList<>();
