@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PricesTest {
+ public class PricesTest {
 
     @Test
     public void dataFromTest() {
@@ -73,13 +73,13 @@ public class PricesTest {
         oldPriceList.add(new Price("122856", 1, 1, "01.01.2013 00:00:00", "31.01.2013 23:59:59", 11000));
 
         List<Price> newPriceList = new ArrayList<>();
-        newPriceList.add(new Price("122856", 1, 1, "31.01.2013 23:59:59", "28.02.2013 23:59:59", 12000));
+        newPriceList.add(new Price("122856", 1, 1, "30.01.2013 23:59:59", "28.02.2013 23:59:59", 12000));
 
         List<Price> unionPriceList = PriceUnion.unionList(oldPriceList, newPriceList);
 
         List<Price> goodPriceList = new ArrayList<>();
-        goodPriceList.add(new Price("122856", 1, 1, "01.01.2013 00:00:00", "31.01.2013 23:59:59", 11000));
-        goodPriceList.add(new Price("122856", 1, 1, "31.01.2013 23:59:59", "28.02.2013 23:59:59", 12000));
+        goodPriceList.add(new Price("122856", 1, 1, "01.01.2013 00:00:00", "30.01.2013 23:59:59", 11000));
+        goodPriceList.add(new Price("122856", 1, 1, "30.01.2013 23:59:59", "28.02.2013 23:59:59", 12000));
 
         assertEquals(unionPriceList, goodPriceList);
     }

@@ -38,7 +38,7 @@ public class PriceUnion {
                 .flatMap(n -> n.stream())
                 .map(n -> n.getKey())
                 .collect(Collectors.toCollection(LinkedHashSet::new));
-        
+
         List<Price> rawPriceList = new ArrayList<>();
 
         // По всем уникальным ключам
@@ -86,7 +86,7 @@ public class PriceUnion {
      * Список всех дат из прайсов (по ключу)
      */
     private static ArrayList<Date> getIntervals(PriceList p1, PriceList p2) {
-        HashSet<Date> d = new HashSet<>();
+       HashSet<Date> d = new HashSet<>();
 
         for (Price temp : p1.getPriceList()) {
             d.add(temp.getBegin());
