@@ -6,7 +6,10 @@ import lombok.Setter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -90,6 +93,9 @@ public class Price {
                 '}';
     }
 
+    public List<Date> getDates() {
+        return new ArrayList<>(Arrays.asList(begin, end));
+    }
     /*@Override
     public String toString() {
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");

@@ -85,21 +85,14 @@ public class PriceUnion {
     /**
      * Список всех дат из прайсов (по ключу)
      */
-    private static ArrayList<Date> getIntervals(PriceList p1, PriceList p2) {
-       HashSet<Date> d = new HashSet<>();
-
-        for (Price temp : p1.getPriceList()) {
-            d.add(temp.getBegin());
-            d.add(temp.getEnd());
-        }
-        for (Price temp : p2.getPriceList()) {
-            d.add(temp.getBegin());
-            d.add(temp.getEnd());
-        }
-
-        ArrayList<Date> dates = new ArrayList<>(d);
-        dates.sort(Date::compareTo);
-
+    private static List<Date> getIntervals(PriceList p1, PriceList p2) {
+        List<Date> dates = Stream.of(p1.getPriceList(), p2.getPriceList())
+                .flatMap(Collection::stream)
+                .map(Price::getDates)
+                .flatMap(Collection::stream)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toCollection(ArrayList::new));
         return dates;
     }
 
