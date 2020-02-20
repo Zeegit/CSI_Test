@@ -18,9 +18,9 @@ import java.util.List;
 @Setter
 public class Price {
     //private long id;                // идентификатор в БД
-    private String productCode;     // код товара
-    private int number;             // номер цены
-    private int depart;             // номер отдела
+    //private String productCode;     // код товара
+    //private int number;             // номер цены
+    //private int depart;             // номер отдела
 
     private Date begin;             // начало действия
     private Date end;               // конец действия
@@ -30,9 +30,9 @@ public class Price {
     private Key key;
 
     public Price(String productCode, int number, int depart, String begin, String end, int value) {
-        this.productCode = productCode;
-        this.number = number;
-        this.depart = depart;
+        //this.productCode = productCode;
+        //this.number = number;
+        //this.depart = depart;
 
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         try { this.begin = df.parse(begin); } catch (ParseException e) { throw new IllegalArgumentException(begin+" is not valid Date"); }
@@ -45,9 +45,9 @@ public class Price {
 
     public Price(Key k, Date dateFrom, Date dateTo, Long price) {
         this.key = k;
-        this.productCode = k.getProductCode();
-        this.number = k.getNumber();
-        this.depart = k.getDepart();
+        //this.productCode = k.getProductCode();
+        //this.number = k.getNumber();
+        //this.depart = k.getDepart();
         this.begin = dateFrom;
         this.end = dateTo;
         this.value = price;
@@ -59,21 +59,21 @@ public class Price {
         if (!(o instanceof Price)) return false;
 
         Price price = (Price) o;
-
-        if (getNumber() != price.getNumber()) return false;
-        if (getDepart() != price.getDepart()) return false;
+        if (!getKey().equals(price.getKey())) return false;
+        //if (getNumber() != price.getNumber()) return false;
+        //if (getDepart() != price.getDepart()) return false;
         if (getValue() != price.getValue()) return false;
-        if (getProductCode() != null ? !getProductCode().equals(price.getProductCode()) : price.getProductCode() != null)
-            return false;
+        //if (getProductCode() != null ? !getProductCode().equals(price.getProductCode()) : price.getProductCode() != null)
+        //    return false;
         if (getBegin() != null ? !getBegin().equals(price.getBegin()) : price.getBegin() != null) return false;
         return getEnd() != null ? getEnd().equals(price.getEnd()) : price.getEnd() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getProductCode() != null ? getProductCode().hashCode() : 0;
-        result = 31 * result + getNumber();
-        result = 31 * result + getDepart();
+        int result = getKey().hashCode(); // getProductCode() != null ? getProductCode().hashCode() : 0;
+        //result = 31 * result + getNumber();
+        //result = 31 * result + getDepart();
         result = 31 * result + (getBegin() != null ? getBegin().hashCode() : 0);
         result = 31 * result + (getEnd() != null ? getEnd().hashCode() : 0);
         result = 31 * result + (int) (getValue() ^ (getValue() >>> 32));
@@ -84,9 +84,9 @@ public class Price {
     public String toString() {
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         return "Price{" +
-                "productCode='" + productCode + '\'' +
-                ", number=" + number +
-                ", depart=" + depart +
+                "productCode='" + getProductCode() + '\'' +
+                ", number=" + getNumber() +
+                ", depart=" + getDepart() +
                 ", begin=" + df.format(begin) +
                 ", end=" + df.format(end) +
                 ", value=" + value +
@@ -95,6 +95,18 @@ public class Price {
 
     public List<Date> getDates() {
         return new ArrayList<>(Arrays.asList(begin, end));
+    }
+
+    public Object getProductCode() {
+        return key.getProductCode();
+    }
+
+    public Object getNumber() {
+        return key.getNumber();
+    }
+
+    public Object getDepart() {
+        return key.getDepart();
     }
     /*@Override
     public String toString() {
